@@ -18,7 +18,6 @@ import pl.edu.agh.to.cinemawiet.view.prompts.Prompts;
 @Component
 public class UserViewController {
 
-
     @FXML
     ListView<User> usersList = new ListView<>();
 
