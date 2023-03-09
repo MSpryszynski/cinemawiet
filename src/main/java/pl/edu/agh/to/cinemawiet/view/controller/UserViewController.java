@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import pl.edu.agh.to.cinemawiet.ApplicationUI;
@@ -52,13 +51,13 @@ public class UserViewController {
 
     private User highlightedUser;
 
-    @Autowired
-    private EmailSenderService emailSenderService;
+    private final EmailSenderService emailSenderService;
 
 
-    public UserViewController(UserController userController, PasswordEncoder encoder) {
+    public UserViewController(UserController userController, PasswordEncoder encoder, EmailSenderService emailSenderService) {
         this.userController = userController;
         this.encoder = encoder;
+        this.emailSenderService = emailSenderService;
     }
 
     @FXML
@@ -68,9 +67,7 @@ public class UserViewController {
 
         ObservableList<User> users = FXCollections.observableArrayList(userController.getAllUsers());
         usersList.setItems(users);
-        usersList.setOnMouseClicked(event -> {
-            highlightedUser=usersList.getSelectionModel().getSelectedItem();
-        });
+        usersList.setOnMouseClicked(event -> highlightedUser=usersList.getSelectionModel().getSelectedItem());
     }
 
     @FXML
